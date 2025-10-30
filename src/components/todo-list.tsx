@@ -10,6 +10,7 @@ import { Trash2 } from "lucide-react"
 import { Card, CardContent } from "./ui/card"
 import { useTodoStore } from "../store/todo-store"
 import { format } from "date-fns"
+import { Textarea } from "./ui/textarea"
 
 export default function TodoList() {
   const [newTodo, setNewTodo] = useState("")
@@ -54,22 +55,32 @@ export default function TodoList() {
   const renderTodoList = (todos: typeof sortedTodos) => (
     todos.map((todo) => (
       <Card key={todo.id} className="shadow-sm py-2">
-        <CardContent className="py-0 px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 flex-1">
+        <CardContent className="py-0 pl-4 pr-0">
+          <div className="flex items-start justify-between">
+            <div className="flex items-start gap-3 flex-1">
               <Checkbox
                 checked={todo.completed}
                 onCheckedChange={() => toggleTodo(todo.id)}
                 id={`todo-${todo.id}`}
+                className="mt-1.5"
               />
 
               {editingId === todo.id ? (
-                <Input
+                <Textarea
                   value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
+                  onChange={(e) => {
+                    setEditText(e.target.value)
+                    e.currentTarget.style.height = 'auto'
+                    e.currentTarget.style.height = e.currentTarget.scrollHeight + 'px'
+                  }}
                   onBlur={() => saveEdit(todo.id)}
-                  onKeyDown={(e) => e.key === "Enter" && saveEdit(todo.id)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && !e.shiftKey && (e.preventDefault(), saveEdit(todo.id))
+                  }
                   autoFocus
+                  className="min-h-[32px] resize-none font-sans leading-tight text-sm p-2"
+                  rows={1}
+                  style={{overflow: 'hidden'}}
                 />
               ) : (
                 <div className="flex-1">
@@ -85,9 +96,14 @@ export default function TodoList() {
                   >
                     {todo.title}
                   </label>
-                  <p className="text-xs text-muted-foreground mt-1">
+                  <p className="text-[10px] text-muted-foreground mt-1">
                     Created: {format(new Date(todo.createdAt), "PPPpp")}
                   </p>
+                  {todo.completed && todo.completedAt && (
+                    <p className="text-[10px] text-muted-foreground">
+                      Completed: {format(new Date(todo.completedAt), "PPPpp")}
+                    </p>
+                  )}
                 </div>
               )}
             </div>

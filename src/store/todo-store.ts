@@ -6,6 +6,7 @@ interface Todo {
   title: string
   completed: boolean
   createdAt: string
+  completedAt?: string | null // add completed date
 }
 
 interface TodoState {
@@ -41,7 +42,15 @@ export const useTodoStore = create<TodoState>()(
 
       toggleTodo: (id) =>
         set((state) => ({
-          todos: state.todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
+          todos: state.todos.map((todo) =>
+            todo.id === id
+              ? {
+                  ...todo,
+                  completed: !todo.completed,
+                  completedAt: !todo.completed ? new Date().toISOString() : null,
+                }
+              : todo
+          ),
         })),
 
       updateTodo: (id, title) =>
