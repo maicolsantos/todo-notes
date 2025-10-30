@@ -5,7 +5,7 @@ import Notes from "./components/notes"
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <div className="w-full">
         <Tabs defaultValue="todo" className="w-full relative h-screen">
           <TabsList className="grid w-full grid-cols-2 sticky top-0">
