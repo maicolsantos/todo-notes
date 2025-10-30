@@ -24,7 +24,7 @@ export default function Notes() {
   return (
     <Textarea
       placeholder="Write your notes here..."
-      className="resize-none font-mono w-full h-[calc(100vh-52px)]"
+      className="resize-none font-mono w-full h-[calc(100vh-52px)] text-xs"
       value={content}
       onChange={handleChange}
     />
