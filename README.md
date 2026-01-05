@@ -19,8 +19,8 @@ To install this extension locally in Chrome:
 1. **Build the extension**
 
    ```bash
-   pnpm install
-   pnpm build
+   npm install
+   npm run build
    ```
 
 2. **Load the extension in Chrome**
