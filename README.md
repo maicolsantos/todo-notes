@@ -32,4 +32,3 @@ To install this extension locally in Chrome:
 
 3. **Access the extension**
    - Click the extension icon in your Chrome toolbar
-   - Or use `Ctrl+Shift+S` (Windows/Linux) or `Cmd+Shift+S` (Mac) to open the side panel
